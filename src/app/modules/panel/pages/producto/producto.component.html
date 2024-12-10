@@ -1,0 +1,66 @@
+<div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-700">Gestión de Productos</h1>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" (click)="openModal()">
+            Agregar Producto
+        </button>
+    </div>
+    <!-- Modal -->
+    <div *ngIf="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-200 bg-opacity-50">
+        <div class="bg-white p-6 rounded-lg w-96">
+            <h2 class="text-2xl font-semibold mb-4">Agregar Producto</h2>
+            <form (ngSubmit)="crearProducto ()">
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="nombre">Nombre</label>
+                    <input type="text" id="nombre" [(ngModel)]="producto.nombre" name="nombre"
+                        class="w-full p-2 border rounded" required />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="precio">Precio</label>
+                    <input type="number" id="precio" [(ngModel)]="producto.precio" name="precio"
+                        class="w-full p-2 border rounded" required />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="cantidad">Cantidad</label>
+                    <input type="number" id="cantidad" [(ngModel)]="producto.cantidad" name="cantidad"
+                        class="w-full p-2 border rounded" required />
+                </div>
+                <div class="flex justify-between">
+                    <button type="button" class="bg-gray-400 text-white px-4 py-2 rounded"
+                        (click)="closeModal()">Cancelar</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white rounded-lg shadow-md">
+            <thead class="bg-gray-200 text-gray-600">
+                <tr>
+                    <th class="py-3 px-6 text-left">Código</th>
+                    <th class="py-3 px-6 text-left">Nombre</th>
+                    <th class="py-3 px-6 text-left">Precio</th>
+                    <th class="py-3 px-6 text-left">Cantidad</th>
+                    <th class="py-3 px-6 text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700">
+                <tr *ngFor="let producto of productos" class="border-b">
+                    <td class="py-3 px-6">{{ producto?.id }}</td>
+                    <td class="py-3 px-6">{{ producto?.nombre }}</td>
+                    <td class="py-3 px-6">{{ producto?.precio }}</td>
+                    <td class="py-3 px-6">{{ producto?.cantidad }}</td>
+                    <td class="py-3 px-6 text-center">
+                        <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                            (click)="eliminarProducto(producto.id)">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
